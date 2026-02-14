@@ -2,43 +2,68 @@ use std::io;
 
 fn main() {
     let mut board = [' '; 9];
-    board[0] = 'X';
-    board[4] = 'X';
-    board[8] = 'X';
+    print_board(board);
 
     loop {
-        let input = get_input();
+        print!("Enter position for X: ");
+        let index = get_index_from_input();
 
-        if input.trim() == "quite" {
+        if let Err(e) = index {
+            println!("{e}");
+
+            continue;
+        }
+        let index = index.unwrap();
+
+        if let None = index {
             break;
         }
 
-        println!("{:?}", input)
-    }
+        let index = index.unwrap();
+        board[index] = 'X';
 
-    // let input = get_input();
-    // println!("{:#?}", input)
+        print_board(board);
+    }
 }
 
 fn print_board(board: [char; 9]) {
     println!(
         "
-    +----+----+----+
-    |  {}  |  {}  |  {}  |
-    +----+----+----+
-    |  {}  |  {}  |  {}  |
-    +----+----+----+
-    |  {}  |  {}  |  {}  |
-    +----+----+----+
+    +------+------+------+
+    |  {}   |  {}   |  {}   |
+    |      |      |      |
+    +------+------+------+
+    |  {}   |  {}   |  {}   |
+    |      |      |      |
+    +------+------+------+
+    |  {}   |  {}   |  {}   |
+    |      |      |      |
+    +------+------+------+
     ",
         board[0], board[1], board[2], board[3], board[4], board[5], board[6], board[7], board[8]
     );
 }
 
-fn get_input() -> String {
+fn get_index_from_input() -> Result<Option<usize>, String> {
     let mut input = String::new();
-    io::stdin()
+
+    let _ = io::stdin()
         .read_line(&mut input)
-        .expect("input a character");
-    return input;
+        .map_err(|e| e.to_string())?;
+
+    let input = input.trim();
+
+    if input == "quite" {
+        return Ok(None);
+    }
+
+    let index = input
+        .parse::<usize>()
+        .map_err(|_| format!("Input should,be  and integer"))?;
+
+    if index < 1 || index > 9 {
+        return Err(format!("the position should be an integer from 1 to 9"));
+    }
+
+    Ok(Some(index - 1))
 }
