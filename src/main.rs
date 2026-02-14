@@ -4,8 +4,11 @@ fn main() {
     let mut board = [' '; 9];
     print_board(board);
 
+    let players = ['X', 'O'];
+    let mut turn = 0;
+
     loop {
-        print!("Enter position for X: ");
+        print!("Enter position for: {}, ", players[turn]);
         let index = get_index_from_input();
 
         if let Err(e) = index {
@@ -20,13 +23,21 @@ fn main() {
         }
 
         let index = index.unwrap();
-        board[index] = 'X';
+
+        if board[index] != ' ' {
+            println!("the cell at position {} is already occupied", index + 1)
+        }
+
+        board[index] = players[turn];
 
         print_board(board);
+        turn = (turn + 1) % 2;
     }
 }
 
 fn print_board(board: [char; 9]) {
+    // println!("",);
+
     println!(
         "
     +------+------+------+
