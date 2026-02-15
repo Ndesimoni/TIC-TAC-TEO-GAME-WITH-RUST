@@ -1,4 +1,9 @@
-pub fn choose_player() {
+#[allow(unused_imports)]
+use crate::models::player;
+
+use std::io;
+
+pub fn choose_player() -> io::Result<(Player, bool)> {
     println!(
         "
      \r    +-------- TIC TAC TOE ---------+
@@ -20,5 +25,7 @@ pub fn choose_player() {
      \r    |                              |
      \r    +------------------------------+
      \n\r"
-    )
+    );
+
+    todo!()
 }
