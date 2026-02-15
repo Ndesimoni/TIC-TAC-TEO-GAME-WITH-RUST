@@ -1,5 +1,5 @@
 #[allow(unused_imports)]
-use crate::models::player;
+use crate::models::Player;
 
 use std::io;
 
@@ -27,5 +27,5 @@ pub fn choose_player() -> io::Result<(Player, bool)> {
      \n\r"
     );
 
-    todo!()
+    Ok((Player::X, true))
 }
