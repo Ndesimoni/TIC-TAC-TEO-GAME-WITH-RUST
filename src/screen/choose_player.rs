@@ -7,7 +7,7 @@ use crossterm::{
     event::{self, Event, KeyCode},
     execute,
     style::{Color, Print, ResetColor, SetBackgroundColor, SetForegroundColor},
-    terminal::{self, Clear, ClearType},
+    terminal::{Clear, ClearType},
 };
 
 use std::io::{self, Write};

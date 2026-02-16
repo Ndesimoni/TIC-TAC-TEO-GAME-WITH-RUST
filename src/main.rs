@@ -4,7 +4,7 @@ use crossterm::{
 };
 use std::io::{self, Write};
 
-use tic_tac_teo::screen::choose_player;
+use tic_tac_teo::screen::{choose_player, game_play};
 
 fn main() -> io::Result<()> {
     terminal::enable_raw_mode()?;
@@ -20,6 +20,10 @@ fn main() -> io::Result<()> {
 
         let (human_player, continue_game) = choose_player()?;
 
+        if !continue_game {
+            break;
+        }
+        let (winning_player, continue_game) = game_play(&human_player)?;
         break;
     }
 
