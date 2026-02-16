@@ -1,7 +1,7 @@
-pub mod player;
-pub mod tab;
+mod player;
 
+mod tabs;
 
 pub use player::*;
 
-pub use tab::*;
+pub use tabs::*;

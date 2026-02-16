@@ -1,6 +1,6 @@
-#[allow(unused_imports)]
-use crate::models::Player;
-use crate::models::Tabs;
+use std::io::{self, Write};
+
+use crate::models::{Player, Tabs};
 
 use crossterm::{
     cursor,
@@ -10,14 +10,13 @@ use crossterm::{
     terminal::{Clear, ClearType},
 };
 
-use std::io::{self, Write};
-
 pub fn choose_player() -> io::Result<(Player, bool)> {
     let mut stdout = io::stdout();
 
     let mut tabs = Tabs::new(vec![(17, 13, Player::X), (22, 13, Player::O)]);
 
     loop {
+        //clear screen
         execute!(
             stdout,
             cursor::MoveTo(0, 0),
@@ -27,6 +26,7 @@ pub fn choose_player() -> io::Result<(Player, bool)> {
 
         print_screen();
 
+        // highlight selected tab
         execute!(
             stdout,
             cursor::MoveTo(tabs.position().0, tabs.position().1),
@@ -41,9 +41,13 @@ pub fn choose_player() -> io::Result<(Player, bool)> {
         if let Event::Key(key_event) = event::read()? {
             match key_event.code {
                 KeyCode::Tab => tabs.next(),
+
                 KeyCode::BackTab => tabs.prev(),
+
                 KeyCode::Enter => return Ok((tabs.value().clone(), true)),
+
                 KeyCode::Esc => return Ok((tabs.value().clone(), false)),
+
                 _ => continue,
             }
         }

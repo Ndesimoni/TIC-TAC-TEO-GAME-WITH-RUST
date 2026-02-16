@@ -1,4 +1,4 @@
-#[derive(Clone)]
+#[derive(Clone, PartialEq)]
 pub enum Player {
     X,
     O,
@@ -12,7 +12,7 @@ impl Player {
         }
     }
 
-    pub fn others(&self) -> Self {
+    pub fn other(&self) -> Self {
         match self {
             Player::X => Player::O,
             Player::O => Player::X,
