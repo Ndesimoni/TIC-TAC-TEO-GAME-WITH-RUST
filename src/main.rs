@@ -18,7 +18,7 @@ fn main() -> io::Result<()> {
             Clear(ClearType::Purge)
         )?;
 
-        choose_player()?;
+        let (human_player, continue_game) = choose_player()?;
 
         break;
     }
