@@ -1,9 +1,32 @@
 #[allow(unused_imports)]
 use crate::models::Player;
 
-use std::io;
+use crossterm::{
+    cursor, execute,
+    style::{Color, SetForegroundColor},
+    terminal::{self, Clear, ClearType},
+};
+
+use std::io::{self, Write};
 
 pub fn choose_player() -> io::Result<(Player, bool)> {
+    let mut stdout = io::stdout();
+
+    execute!(
+        stdout,
+        cursor::MoveTo(0, 0),
+        Clear(ClearType::Purge),
+        SetForegroundColor(Color::Cyan)
+    )?;
+
+    print_screen();
+
+    stdout.flush()?;
+
+    Ok((Player::X, true))
+}
+
+fn print_screen() {
     println!(
         "
      \r    +-------- TIC TAC TOE ---------+
@@ -26,6 +49,4 @@ pub fn choose_player() -> io::Result<(Player, bool)> {
      \r    +------------------------------+
      \n\r"
     );
-
-    Ok((Player::X, true))
 }
