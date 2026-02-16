@@ -1,4 +1,41 @@
-#[allow(dead_code)]
+// #[allow(dead_code)]
+
+// pub struct Tabs<T> {
+//     index: isize,
+//     positions: Vec<(u16, u16, T)>,
+// }
+
+// impl<T> Tabs<T> {
+//     pub fn new(positions: Vec<(u16, u16, T)>) -> Self {
+//         Tabs {
+//             index: 0,
+//             positions,
+//         }
+//     }
+
+//     pub fn position(&self) -> (u16, u16) {
+//         (
+//             self.positions[self.index as usize].0,
+//             self.positions[self.index as usize].1,
+//         )
+//     }
+
+//     pub fn value(&self) -> &T {
+//         &self.positions[self.index as usize].2
+//     }
+
+//     pub fn next(&mut self) {
+//         let len = self.positions.len() as isize;
+
+//         self.index = (self.index + 1) % len
+//     }
+
+//     pub fn prev(&mut self) {
+//         let len = self.positions.len() as isize;
+
+//         self.index = (self.index + 1 + len) % len
+//     }
+// }
 
 pub struct Tabs<T> {
     index: isize,
@@ -8,8 +45,8 @@ pub struct Tabs<T> {
 impl<T> Tabs<T> {
     pub fn new(positions: Vec<(u16, u16, T)>) -> Self {
         Tabs {
-            index: 0,
             positions,
+            index: 0,
         }
     }
 
@@ -33,6 +70,6 @@ impl<T> Tabs<T> {
     pub fn prev(&mut self) {
         let len = self.positions.len() as isize;
 
-        self.index = (self.index + 1 + len) % len
+        self.index = (self.index - 1 + len) % len
     }
 }
